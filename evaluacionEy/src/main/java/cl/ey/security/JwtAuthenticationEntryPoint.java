@@ -1,4 +1,4 @@
-package cl.ey.config;
+package cl.ey.security;
 
 import java.io.IOException;
 import java.io.Serializable;

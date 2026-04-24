@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,9 +24,11 @@ import cl.ey.model.Usuarios;
 import cl.ey.response.ResponseHandler;
 
 @RestController
-@RequestMapping(value="/usuario/", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/usuario", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 public class UsuarioController {
 
+	private static final Logger logger = LogManager.getLogger(UsuarioController.class);
+	
 	private final String PREFIX = "Bearer ";
 	private final String HEADER = "Authorization";
 
@@ -40,14 +44,13 @@ public class UsuarioController {
 	// Crea registro Usuario
 	@PostMapping("/registra")
 	public ResponseEntity<Object> registroUsuario(HttpServletRequest request, @RequestBody @Valid Usuarios usuario ) {
-		
 		if (usuarioImplement.existEmail(usuario.getEmail())) {
-			return ResponseHandler.generateResponse("Correo ya registrado", HttpStatus.FORBIDDEN);
+			return ResponseHandler.generateResponse("Correo ya registrado", HttpStatus.CONFLICT);
 		}
 
 		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
 		usuario.setToken(jwtToken);
-		
+		logger.info(usuario.toString());
 		return new ResponseEntity<Object>(usuarioImplement.registraUsuario(usuario), HttpStatus.CREATED);
 
 	}
