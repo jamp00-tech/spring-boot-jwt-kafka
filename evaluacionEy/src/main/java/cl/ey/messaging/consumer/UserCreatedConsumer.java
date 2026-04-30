@@ -26,5 +26,11 @@ public class UserCreatedConsumer {
 //	public void consume(ConsumerRecord<String, String> record) {
 	public void consume(UserCreatedEvent userCreated) {
 		logger.info("\n\n\tKAFKA CONSUMED: " +userCreated.email()+ "\n\n");
+
+		if (userCreated.email().contains("error"))
+			throw new RuntimeException("Errar handling KAFKA CONSUMER");
+
+    	logger.info("\n\n\tUser created event processed: " +userCreated.email()+ "\n");
+
 	}
 }
