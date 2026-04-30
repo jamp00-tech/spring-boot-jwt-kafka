@@ -5,12 +5,12 @@ import java.io.Serializable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import cl.ey.model.Usuarios;
+import cl.ey.model.Usuario;
 
 @Repository
-public interface UsuariosRepository extends CrudRepository<Usuarios, Serializable> {
+public interface UsuariosRepository extends CrudRepository<Usuario, Serializable> {
 
-	public Usuarios findByEmail(String email);
+	public Usuario findByEmail(String email);
 
 }
 

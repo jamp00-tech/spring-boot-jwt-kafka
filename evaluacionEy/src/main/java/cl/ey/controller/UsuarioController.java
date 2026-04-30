@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cl.ey.implement.UsuarioImplement;
-import cl.ey.model.Usuarios;
+import cl.ey.model.Usuario;
 import cl.ey.response.ResponseHandler;
+import cl.ey.service.UsuarioService;
 
 @RestController
 @RequestMapping(value="/usuario", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -29,30 +29,29 @@ public class UsuarioController {
 
 	private static final Logger logger = LogManager.getLogger(UsuarioController.class);
 	
-	private final String PREFIX = "Bearer ";
-	private final String HEADER = "Authorization";
-
 	@Autowired
-	private UsuarioImplement usuarioImplement;
+	private UsuarioService usuarioService;
 
 	@GetMapping("/ping1")
 	public ResponseEntity<Object> ping2(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		  String text = "Ping uno";
-		  return ResponseHandler.generateResponse(text, HttpStatus.OK);
+		  return ResponseHandler.generateResponse(text, HttpStatus.OK, null);
 	}
-	
+
 	// Crea registro Usuario
 	@PostMapping("/registra")
-	public ResponseEntity<Object> registroUsuario(HttpServletRequest request, @RequestBody @Valid Usuarios usuario ) {
-		if (usuarioImplement.existEmail(usuario.getEmail())) {
-			return ResponseHandler.generateResponse("Correo ya registrado", HttpStatus.CONFLICT);
-		}
-
-		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-		usuario.setToken(jwtToken);
-		logger.info(usuario.toString());
-		return new ResponseEntity<Object>(usuarioImplement.registraUsuario(usuario), HttpStatus.CREATED);
-
+	public ResponseEntity<Object> registroUsuario(HttpServletRequest request, @RequestBody @Valid Usuario usuario ) {
+	    return usuarioService.processRegistroUsuario(request, usuario)
+    			.map(user -> ResponseHandler.generateResponse(
+    					"User created",
+    					HttpStatus.CREATED,
+    					user
+				))
+				.orElseGet(() -> ResponseHandler.generateResponse(
+						"User already inserted",
+						HttpStatus.CONFLICT,
+						null
+				));
 	}
 
 }

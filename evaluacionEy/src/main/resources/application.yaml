@@ -2,6 +2,10 @@ server:
   port: 9090
 
 spring:
+  devtools:
+    restart:
+      enabled: true
+
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa
@@ -23,4 +27,36 @@ spring:
     console:
       enabled: true
       path: /h2-console
-      
+
+  kafka: 
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      group-id: test-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: cl.ey.model
+
+    properties:
+      spring:
+        json:
+          add:
+            type:
+              headers: false   # evita metadata innecesaria
+ 
+logging:
+  level:
+    root: INFO
+    cl.ey.messaging.consumer: DEBUG
+    cl.ey.messaging.producer: DEBUG
+    org.springframework.kafka: INFO
+    org.apache.kafka.clients.consumer: INFO

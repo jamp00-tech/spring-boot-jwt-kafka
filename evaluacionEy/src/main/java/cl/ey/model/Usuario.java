@@ -20,7 +20,7 @@ import jakarta.validation.constraints.Pattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Usuarios {
+public class Usuario {
 
 	@Id
     @GeneratedValue
@@ -51,7 +51,7 @@ public class Usuarios {
 
 	private boolean isActive;
 
-	public Usuarios() {
+	public Usuario() {
 		this.created = LocalDate.now();
 		this.modified = LocalDate.now();
 		this.lastLogin = LocalDate.now();
@@ -59,7 +59,7 @@ public class Usuarios {
 		this.isActive = true;
 	}
 
-	public Usuarios(String email, String password, List<Phones> phones, String token) {
+	public Usuario(String email, String password, List<Phones> phones, String token) {
 		super();
 		this.email = email;
 		this.password = password;
