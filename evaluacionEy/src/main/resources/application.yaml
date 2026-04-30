@@ -39,12 +39,15 @@ spring:
       group-id: test-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring:
           json:
             trusted:
-              packages: cl.ey.model
+              packages: cl.ey.messaging.event
+            value:
+              default:
+                type: cl.ey.messaging.event.UserCreatedEvent
 
     properties:
       spring:
