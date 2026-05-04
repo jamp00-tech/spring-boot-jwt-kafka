@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cl.ey</groupId>
-	<artifactId>evaluacionEy</artifactId>
+	<artifactId>spring-boot-jwt-kafka</artifactId>
 	<version>1.1.2</version>
 	<name>usuario</name>
 	<description>JAVA Evaluation EY</description>
