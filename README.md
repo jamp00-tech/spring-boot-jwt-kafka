@@ -70,8 +70,13 @@ mvn spring-boot:run
 
 ```text
 POST /token
+EX:  curl.exe -i http://localhost:9090/token/  -H "Content-Type: application/json" -d '{\"email\":\"a@a.com\",\"password\":\"Ab12\"}'
+
 POST /usuario/registra
+EX:  curl.exe -i -X POST http://localhost:9090/usuario/registra -H "Authorization: Bearer tokentokentoken" -H "Content-Type: application/json" -d '{\"email\":\"a@a.com\",\"password\":\"Ab12\"}'
+
 GET /usuario/ping1
+EX: curl.exe -i http://localhost:9090/usuario/ping1  -H "Content-Type: application/json"
 ```
 
 ---
