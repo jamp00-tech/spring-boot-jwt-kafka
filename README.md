@@ -157,17 +157,10 @@ If retries fail:
 
 **Version history**
 
-* v1.0.0 → JWT + User API
-* v1.1.0 → Kafka producer/consumer + events
-* v1.1.1 → Introduced UserCreatedEvent for cleaner event-driven communication
+* v1.2.0 → Full Docker Compose setup with app + Kafka + Kafka UI, standardized port 8080, actuator access, and Kafka demo endpoint
 * v1.1.2 → Added Kafka retry/error handling (3 retries + 2s backoff)
+* v1.1.1 → Introduced UserCreatedEvent for cleaner event-driven communication
+* v1.1.0 → Kafka producer/consumer + events
+* v1.0.0 → JWT + User API
 
 **Unreleased**
-* token fix (/token + /token/)
-* actuator access
-* Kafka demo endpoint
-* full docker-compose
-* Apache Kafka
-* Kafka UI
-* app estandarizada en 8080
-* full local containerized setup
