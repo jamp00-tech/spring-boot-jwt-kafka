@@ -29,7 +29,7 @@ spring:
       path: /h2-console
 
   kafka: 
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:29092
     listener:
       auto-startup: false
     producer:
