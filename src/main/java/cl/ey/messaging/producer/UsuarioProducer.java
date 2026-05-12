@@ -2,9 +2,11 @@ package cl.ey.messaging.producer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import cl.ey.messaging.event.KafkaDemoState;
 import cl.ey.messaging.event.UserCreatedEvent;
 import cl.ey.model.Usuario;
 import jakarta.annotation.PostConstruct;
@@ -16,6 +18,9 @@ public class UsuarioProducer {
 
     private static final String TOPIC = "user-created";
     private final KafkaTemplate<String, UserCreatedEvent> kafkaTemplate;
+
+    @Autowired
+    private KafkaDemoState kafkaDemoState;
 
     @PostConstruct
     public void init() {
@@ -38,13 +43,18 @@ public class UsuarioProducer {
             if (ex != null) {
             	logger.info("\n\nKAFKA ERROR: " +ex.getMessage());
             } else {
-            	logger.info("\n\n\tKAFKA PRODUCER SENT OK -> topic: "
+            	String kafkaMessage = "\n\n\tKAFKA PRODUCER SENT OK -> topic: "
                         + result.getRecordMetadata().topic()
                         + ", partition: "
                         + result.getRecordMetadata().partition()
                         + ", offset: "
                         + result.getRecordMetadata().offset()
-                        + "\n\n");
+                        + "\n\n";
+            			
+            	logger.info(kafkaMessage);
+            	
+            	kafkaDemoState.setLastProducedEvent(kafkaMessage);
+            	
             }
         });
 

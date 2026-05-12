@@ -38,7 +38,8 @@ class SecurityConfiguration {
 	        	        "/token/",
 	        	        "/usuario/ping1",
 	        	        "/actuator",
-	        	        "/actuator/**"
+	        	        "/actuator/**",
+	        	        "/kafka/**"
 	        	    ).permitAll()
 	        	    .anyRequest().authenticated()
         	)
