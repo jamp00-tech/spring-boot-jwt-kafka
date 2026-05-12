@@ -36,7 +36,9 @@ class SecurityConfiguration {
 	        	    .requestMatchers(
 	        	        "/token",
 	        	        "/token/",
-	        	        "/usuario/ping1"
+	        	        "/usuario/ping1",
+	        	        "/actuator",
+	        	        "/actuator/**"
 	        	    ).permitAll()
 	        	    .anyRequest().authenticated()
         	)
