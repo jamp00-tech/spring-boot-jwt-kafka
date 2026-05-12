@@ -163,7 +163,11 @@ If retries fail:
 * v1.1.2 → Added Kafka retry/error handling (3 retries + 2s backoff)
 
 **Unreleased**
-* Fixed `/token` endpoint mapping (`/token` and `/token/`)
-* Added actuator endpoint access
-* Added Kafka demo endpoint to view last produced and consumed events
-
+* token fix (/token + /token/)
+* actuator access
+* Kafka demo endpoint
+* full docker-compose
+* Apache Kafka
+* Kafka UI
+* app estandarizada en 8080
+* full local containerized setup
