@@ -32,7 +32,7 @@ public class TokenController {
 	@Autowired
 	private UsuarioService userService;
 
-	@PostMapping(value="/", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value={"", "/"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?>  getToken(@RequestBody LoginRequest login) {
 		logger.debug("Token");
 

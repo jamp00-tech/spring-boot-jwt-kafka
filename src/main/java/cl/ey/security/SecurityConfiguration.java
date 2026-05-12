@@ -32,10 +32,14 @@ class SecurityConfiguration {
 	            .frameOptions(frame -> frame.disable())
 	        )
 	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers(PathRequest.toH2Console()).permitAll()
-	            .requestMatchers("/token/**", "/usuario/ping1").permitAll()
-	            .anyRequest().authenticated()
-	        )
+	        	    .requestMatchers(PathRequest.toH2Console()).permitAll()
+	        	    .requestMatchers(
+	        	        "/token",
+	        	        "/token/",
+	        	        "/usuario/ping1"
+	        	    ).permitAll()
+	        	    .anyRequest().authenticated()
+        	)
 	        .sessionManagement(session -> session
 	            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	        );
