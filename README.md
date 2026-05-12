@@ -70,13 +70,25 @@ mvn spring-boot:run
 
 ```text
 POST /token
-EX:  curl.exe -i http://localhost:9090/token/  -H "Content-Type: application/json" -d '{\"email\":\"a@a.com\",\"password\":\"Ab12\"}'
+EX:
+curl.exe -i http://localhost:9090/token/ \
+-H "Content-Type: application/json" \
+-d '{\"email\":\"a@a.com\",\"password\":\"Ab12\"}'
 
 POST /usuario/registra
-EX:  curl.exe -i -X POST http://localhost:9090/usuario/registra -H "Authorization: Bearer tokentokentoken" -H "Content-Type: application/json" -d '{\"email\":\"a@a.com\",\"password\":\"Ab12\"}'
+EX:
+curl.exe -i -X POST http://localhost:9090/usuario/registra \
+-H "Authorization: Bearer tokentokentoken" \
+-H "Content-Type: application/json" \
+-d '{\"email\":\"a@a.com\",\"password\":\"Ab12\"}'
 
 GET /usuario/ping1
-EX: curl.exe -i http://localhost:9090/usuario/ping1  -H "Content-Type: application/json"
+EX:
+curl.exe -i http://localhost:9090/usuario/ping1
+
+GET /kafka/demo
+EX:
+curl.exe http://localhost:9090/kafka/demo
 ```
 
 ---
@@ -95,6 +107,10 @@ publish UserCreatedEvent
 Kafka topic: user-created
     ↓
 consume event
+    ↓
+GET /kafka/demo
+    ↓
+view last produced/consumed event
 ```
 
 ---
@@ -142,6 +158,12 @@ If retries fail:
 **Version history**
 
 * v1.0.0 → JWT + User API
-* v1.1.0 → Kafka producer/consumer + events + retry handling
+* v1.1.0 → Kafka producer/consumer + events
 * v1.1.1 → Introduced UserCreatedEvent for cleaner event-driven communication
 * v1.1.2 → Added Kafka retry/error handling (3 retries + 2s backoff)
+
+**Unreleased**
+* Fixed `/token` endpoint mapping (`/token` and `/token/`)
+* Added actuator endpoint access
+* Added Kafka demo endpoint to view last produced and consumed events
+
